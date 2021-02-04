@@ -40,23 +40,39 @@ public class NiryoOneStatusModel {
 	@TestStep("toggle_power")
 	public void togglePower() {
 	
-		// TODO
+		if (state == States.OFF) {
+
+			led = Colors.RED;
+			state = States.BOOTING;
+		}
+		else if (state == States.SHUT_DOWN) {
+
+			led = Colors.OFF;
+			state = States.OFF;
+		}
+		else {
+
+			led = Colors.OFF;
+			state = States.DAMAGED;
+		}
 	
 		log("toggle_power");
 	}
 
-	/*
 	@Guard("toggle_power")
 	public boolean allowTogglePower() {
 
-		return true; // TODO
+		return (state == States.OFF || state == States.SHUT_DOWN);
 	}
-	*/
 
 	@TestStep("long_press_button")
 	public void longPressButton() {
 	
-		// TODO
+		if (state == States.ON) {
+
+			state = States.SHUTTING_DOWN;
+			led = Colors.VIOLET;
+		}
 
 		log("long_press_button");
 	}
@@ -64,12 +80,15 @@ public class NiryoOneStatusModel {
 	@TestStep("signal_shutdown")
 	public void signalShutdown() {
 	
-		// TODO
+		if (state == States.ON) {
+			
+			state = States.SHUTTING_DOWN;
+			led = Colors.VIOLET;
+		}
 
 		log("signal_shutdown");
 	}
 
-	/*
 	@TestStep("wait")
 	public void testerWait() {
 
@@ -94,9 +113,42 @@ public class NiryoOneStatusModel {
 		
 		log("wait");
 	}
-	*/
 
-	// TODO: Can you think of more test steps? Add them.
+	@TestStep("connect_wifi")
+	public void connectWifi() {
+
+		if (state == States.ON) {
+
+			mode = Modes.WIFI;
+			led = Colors.GREEN;
+		}
+
+		log("connect_wifi");
+	}
+
+	@Guard("connect_wifi")
+	public boolean allowConnectWifi() {
+
+		return (state == States.ON);
+	}
+
+	@TestStep("disconnect_wifi")
+	public void disconnectWifi() {
+
+		if (state == States.ON) {
+
+			mode = Modes.HOTSPOT;
+			led = Colors.BLUE;
+		}
+
+		log("disconnect_wifi");
+	}
+
+	@Guard("disconnect_wifi")
+	public boolean allowDisconnectWifi() {
+
+		return (state == States.ON);
+	}
 
 	private void log(String testStep) {
 
