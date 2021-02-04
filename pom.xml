@@ -5,4 +5,16 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>mbt-sandbox</name>
   <description>Model-Based Testing Sandbox</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>net.kanstren.osmo</groupId>
+  		<artifactId>osmotester</artifactId>
+  		<version>3.7.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.graphwalker</groupId>
+  		<artifactId>graphwalker-core</artifactId>
+  		<version>4.3.0</version>
+  	</dependency>
+  </dependencies>
 </project>
